@@ -6,17 +6,17 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Pure-Go, MRI-4.0.5-faithful Ruby net-http (no cgo)">
+        <meta name="description" content="A pure-Go reimplementation of Ruby's Net::HTTP HTTP/1.1 message codec — MRI-faithful, no cgo, no I/O.">
       
       
       
-        <link rel="canonical" href="https://go-ruby-net-http.github.io/docs/0.1/reference/">
+        <link rel="canonical" href="https://go-ruby-net-http.github.io/docs/0.1/roadmap/">
       
       
-        <link rel="prev" href="../why/">
+        <link rel="prev" href="../api/">
       
       
-        <link rel="next" href="../contributing/">
+        <link rel="next" href="../performance/">
       
       
       <link rel="icon" href="../assets/logo.svg">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Reference - go-ruby-net-http docs</title>
+        <title>Roadmap - go-ruby-net-http docs</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#reference" class="md-skip">
+        <a href="#roadmap" class="md-skip">
           Skip to content
         </a>
       
@@ -115,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Reference
+              Roadmap
             
           </span>
         </div>
@@ -306,6 +306,26 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage & API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -322,7 +342,7 @@
           
   
   <span class="md-ellipsis">
-    Reference
+    Roadmap
   </span>
   
 
@@ -333,7 +353,7 @@
         
   
   <span class="md-ellipsis">
-    Reference
+    Roadmap
   </span>
   
 
@@ -355,36 +375,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
+  <a href="#documented-out-of-scope-boundaries" class="md-nav__link">
     <span class="md-ellipsis">
-      Install
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#import" class="md-nav__link">
-    <span class="md-ellipsis">
-      Import
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#api-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      API reference
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#conformance" class="md-nav__link">
-    <span class="md-ellipsis">
-      Conformance
+      Documented out-of-scope boundaries
     </span>
   </a>
   
@@ -394,6 +387,26 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -445,36 +458,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
+  <a href="#documented-out-of-scope-boundaries" class="md-nav__link">
     <span class="md-ellipsis">
-      Install
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#import" class="md-nav__link">
-    <span class="md-ellipsis">
-      Import
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#api-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      API reference
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#conformance" class="md-nav__link">
-    <span class="md-ellipsis">
-      Conformance
+      Documented out-of-scope boundaries
     </span>
   </a>
   
@@ -495,30 +481,63 @@
                   
 
 
-<h1 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h1>
-<p>The public API lives at the module root (<code>github.com/go-ruby-net-http/net-http</code>). It is
-<strong>Ruby-shaped but Go-idiomatic</strong>: names mirror Ruby's <code>net-http</code>, while the surface follows
-Go conventions — value types, explicit errors, no global state.</p>
-<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>go<span class="w"> </span>get<span class="w"> </span>github.com/go-ruby-net-http/net-http
-</code></pre></div>
-<h2 id="import">Import<a class="headerlink" href="#import" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="s">&quot;github.com/go-ruby-net-http/net-http&quot;</span>
-</code></pre></div>
-<h2 id="api-reference">API reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
-<p>The authoritative, always-current API reference is generated from the source by
-pkg.go.dev:</p>
+<h1 id="roadmap">Roadmap<a class="headerlink" href="#roadmap" title="Permanent link">&para;</a></h1>
+<p><code>go-ruby-net-http/net-http</code> is grown <strong>test-first</strong>, each capability
+differential-tested against MRI rather than built in isolation. The
+deterministic, interpreter-independent slice of <code>Net::HTTP</code> — the HTTP/1.1 message
+codec — is <strong>complete</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>What</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Request building</td>
+<td>Request line + MRI's default headers in exact order/casing (<code>Accept-Encoding</code>, <code>Accept</code>, <code>User-Agent</code>, <code>Host</code>), <code>Content-Length</code> vs <code>Transfer-Encoding</code>, empty-body default for body-permitting methods, <code>set_form_data</code>, Basic / Proxy-Basic auth — byte-for-byte <code>Net::HTTPGenericRequest#exec</code>.</td>
+<td><strong>Done</strong></td>
+</tr>
+<tr>
+<td>Response parsing</td>
+<td>Status-line regex, header lines with obs-fold continuation and repeated multi-value fields, body by <code>Content-Length</code> <strong>or</strong> chunked <code>Transfer-Encoding</code> (extensions + trailers).</td>
+<td><strong>Done</strong></td>
+</tr>
+<tr>
+<td>Response subclass model</td>
+<td>Every status code mapped to its <code>Net::HTTPResponse</code> subclass and category, generated from MRI's <code>CODE_TO_OBJ</code>, with the <code>HAS_BODY</code> rule and the <code>HTTPUnknownResponse</code> / category fallbacks.</td>
+<td><strong>Done</strong></td>
+</tr>
+<tr>
+<td><code>Net::HTTPHeader</code> mixin</td>
+<td><code>[]</code> / <code>[]=</code> / <code>key?</code> / <code>delete</code> / <code>add_field</code> / <code>get_fields</code> / <code>each_header</code> / <code>each_capitalized</code>, plus <code>content_type</code> / <code>content_length</code> / <code>chunked?</code> / <code>connection_close?</code> and the <code>URI.encode_www_form</code> component encoder.</td>
+<td><strong>Done</strong></td>
+</tr>
+<tr>
+<td>Differential oracle &amp; coverage</td>
+<td>Request bytes, response parse, subclass over MRI's whole table, and form encoding checked byte-for-byte against <code>ruby</code> (≥ 4.0); 100% coverage, green across 6 arches and 3 OSes.</td>
+<td><strong>Done</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="documented-out-of-scope-boundaries">Documented out-of-scope boundaries<a class="headerlink" href="#documented-out-of-scope-boundaries" title="Permanent link">&para;</a></h2>
+<p>These are <strong>deliberate</strong>, recorded so the module's surface is unambiguous:</p>
 <ul>
-<li><strong><a href="https://pkg.go.dev/github.com/go-ruby-net-http/net-http">pkg.go.dev/github.com/go-ruby-net-http/net-http</a></strong></li>
+<li><strong>No transport — the socket / TLS is the host's.</strong> DNS, <code>TCPSocket</code>, the TLS
+  handshake, timeouts, redirects and connection reuse belong to the host (rbgo
+  supplies the byte transport). This library formats and parses bytes only.</li>
+<li><strong>No I/O, no clock.</strong> The codec is a pure function of its bytes; anything that
+  needs to open a connection or measure time is the consumer's job.</li>
+<li><strong>No content-coding inflation.</strong> <code>gzip</code> / <code>deflate</code> body inflation, like the
+  socket itself, is the host's concern; the codec frames the body (Content-Length
+  / chunked) and hands it back raw.</li>
+<li><strong>Reference is reference Ruby (MRI).</strong> Byte-for-byte conformance targets MRI
+  4.0.5's <code>Net::HTTP</code>, as pinned by the differential oracle.</li>
 </ul>
-<p>The module's <a href="https://github.com/go-ruby-net-http/net-http#readme">README</a> carries worked
-examples and the full, up-to-date surface. This page intentionally links to those
-canonical sources rather than duplicating signatures that could drift out of date.</p>
-<h2 id="conformance">Conformance<a class="headerlink" href="#conformance" title="Permanent link">&para;</a></h2>
-<p>Behaviour is pinned by a <strong>differential oracle</strong> against reference Ruby: a corpus
-is run through both the <code>ruby</code> binary and this library and the results are compared,
-gated on the reference where relevant and skipping itself where <code>ruby</code> is absent so
-the cross-arch lanes still validate the library.</p>
+<p>See <a href="../api/">Usage &amp; API</a> for the surface and <a href="../why/">Why pure Go</a> for the
+codec/transport split.</p>
 
 
 

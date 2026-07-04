@@ -10,11 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://go-ruby-net-http.github.io/docs/0.1/contributing/">
+        <link rel="canonical" href="https://go-ruby-net-http.github.io/docs/0.1/performance/">
       
       
-        <link rel="prev" href="../performance/">
+        <link rel="prev" href="../roadmap/">
       
+      
+        <link rel="next" href="../contributing/">
       
       
       <link rel="icon" href="../assets/logo.svg">
@@ -22,7 +24,7 @@
     
     
       
-        <title>Contributing - go-ruby-net-http docs</title>
+        <title>Performance - go-ruby-net-http docs</title>
       
     
     
@@ -74,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#contributing" class="md-skip">
+        <a href="#performance" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +115,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Contributing
+              Performance
             
           </span>
         </div>
@@ -344,26 +346,6 @@
       
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../performance/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Performance
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -380,7 +362,7 @@
           
   
   <span class="md-ellipsis">
-    Contributing
+    Performance
   </span>
   
 
@@ -391,7 +373,7 @@
         
   
   <span class="md-ellipsis">
-    Contributing
+    Performance
   </span>
   
 
@@ -413,29 +395,71 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#hard-rules" class="md-nav__link">
+  <a href="#what-is-measured" class="md-nav__link">
     <span class="md-ellipsis">
-      Hard rules
+      What is measured
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#workflow" class="md-nav__link">
+  <a href="#summary-the-pure-go-codec-beats-mri-and-yjit-on-all-four" class="md-nav__link">
     <span class="md-ellipsis">
-      Workflow
+      Summary — the pure-Go codec beats MRI and YJIT on all four
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#where-things-live" class="md-nav__link">
+  <a href="#per-operation-results-best-of-60" class="md-nav__link">
     <span class="md-ellipsis">
-      Where things live
+      Per-operation results (best of 60)
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Per-operation results (best of 60)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-serialize" class="md-nav__link">
+    <span class="md-ellipsis">
+      request-serialize
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-parse" class="md-nav__link">
+    <span class="md-ellipsis">
+      response-parse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#form-encode" class="md-nav__link">
+    <span class="md-ellipsis">
+      form-encode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-canonicalize" class="md-nav__link">
+    <span class="md-ellipsis">
+      header-canonicalize
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -443,6 +467,26 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -474,29 +518,71 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#hard-rules" class="md-nav__link">
+  <a href="#what-is-measured" class="md-nav__link">
     <span class="md-ellipsis">
-      Hard rules
+      What is measured
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#workflow" class="md-nav__link">
+  <a href="#summary-the-pure-go-codec-beats-mri-and-yjit-on-all-four" class="md-nav__link">
     <span class="md-ellipsis">
-      Workflow
+      Summary — the pure-Go codec beats MRI and YJIT on all four
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#where-things-live" class="md-nav__link">
+  <a href="#per-operation-results-best-of-60" class="md-nav__link">
     <span class="md-ellipsis">
-      Where things live
+      Per-operation results (best of 60)
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Per-operation results (best of 60)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request-serialize" class="md-nav__link">
+    <span class="md-ellipsis">
+      request-serialize
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-parse" class="md-nav__link">
+    <span class="md-ellipsis">
+      response-parse
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#form-encode" class="md-nav__link">
+    <span class="md-ellipsis">
+      form-encode
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header-canonicalize" class="md-nav__link">
+    <span class="md-ellipsis">
+      header-canonicalize
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -515,50 +601,295 @@
                   
 
 
-<h1 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h1>
-<p>Contributions are welcome. <code>go-ruby-net-http/net-http</code> is built to a small set of
-non-negotiable rules — they are what keep it pure-Go, correct, and
-MRI-compatible. Please read these before opening a pull request.</p>
-<h2 id="hard-rules">Hard rules<a class="headerlink" href="#hard-rules" title="Permanent link">&para;</a></h2>
+<h1 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h1>
+<p><code>go-ruby-net-http/net-http</code> is the pure-Go library that
+<a href="https://github.com/go-embedded-ruby/ruby"><code>rbgo</code></a> can bind for Ruby's
+<code>Net::HTTP</code> <strong>message codec</strong>. This page records a <strong>comparative, offline
+benchmark</strong> of that codec against the reference Ruby runtimes, part of the
+ecosystem-wide per-module parity suite.</p>
+<div class="admonition warning">
+<p class="admonition-title">Offline scope — this is the codec, not the network</p>
+<p><code>net-http</code> is a <strong>message codec with no I/O</strong>: DNS, the <code>TCPSocket</code>, the TLS
+handshake and the byte transfer are the host's job (rbgo's), by design. This
+benchmark therefore measures <strong>only the deterministic, network-free surface</strong> —
+building request bytes, parsing a response buffer (including chunked decode),
+URI form encoding, and header canonicalization. It is <strong>not</strong> an end-to-end
+HTTP latency comparison; the wire, the kernel and the TLS stack dominate any
+real request and are identical regardless of who builds the bytes.</p>
+</div>
+<h2 id="what-is-measured">What is measured<a class="headerlink" href="#what-is-measured" title="Permanent link">&para;</a></h2>
+<p>The <strong>same</strong> four network-free operations run through the pure-Go library (via
+its Go API) and through each reference runtime's own <code>Net::HTTP</code> / <code>URI</code>. Inputs
+are built byte-for-byte identically on both sides, and — before any timing — every
+runtime emits a <code>sha256</code> of each op's output that is checked <strong>identical to the Go
+driver</strong>; a runtime that diverges is skipped, not timed. So each column is the
+<strong>same observable operation</strong>, apples-to-apples.</p>
+<table>
+<thead>
+<tr>
+<th>Op</th>
+<th>what it exercises</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>request-serialize</code></td>
+<td>request line + MRI-ordered default headers + form body + <code>Content-Length</code> (<code>Request.Bytes</code> vs <code>Net::HTTPGenericRequest#exec</code>)</td>
+</tr>
+<tr>
+<td><code>response-parse</code></td>
+<td>status line + multi-value headers + <strong>chunked <code>Transfer-Encoding</code> decode</strong> over a fixed buffer (<code>ParseResponse</code> vs <code>read_new</code> + <code>reading_body</code>)</td>
+</tr>
+<tr>
+<td><code>form-encode</code></td>
+<td><code>URI.encode_www_form</code> over spaces / reserved bytes / <code>%</code> / multibyte UTF-8</td>
+</tr>
+<tr>
+<td><code>header-canonicalize</code></td>
+<td>canonicalize + join a 16-field header block (<code>EachCapitalized</code> vs <code>each_capitalized</code>)</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li><strong>Build from source — no vendoring.</strong> Everything compiles from source. Being
-  able to compile from source is a guarantee of independence.</li>
-<li><strong>100% test coverage target, enforced in CI.</strong> New code ships with tests, and
-  coverage is a CI gate. Fill the error branches, not just the happy path.</li>
-<li><strong>All GitHub content in English.</strong> Issues, pull requests, commits, comments,
-  and discussions are English-only.</li>
-<li><strong>Differential testing against MRI.</strong> Correctness is defined by reference Ruby.
-  The same requests are serialised here and by the system <code>ruby</code> (via a recording
-  socket) and compared <strong>byte-for-byte</strong>; responses are parsed both here and by
-  <code>Net::HTTPResponse.read_new</code> and compared — not approximated from memory.</li>
-<li><strong>Pure Go, cgo disabled.</strong> The whole point is a single static binary with no C
-  toolchain. Code must build with <code>CGO_ENABLED=0</code>.</li>
-<li><strong>A codec, not a client.</strong> This module formats and parses HTTP/1.1 messages. It
-  performs <strong>no I/O</strong> — no socket, no TLS, no clock. Anything that needs the
-  network belongs in the host (rbgo), not here.</li>
+<li><strong>Host:</strong> Apple M4 Max (<code>Mac16,5</code>, arm64), macOS 26.5.1 — <strong>date 2026-07-04</strong>.</li>
+<li><strong>Runtimes:</strong> Go 1.26.4 · MRI <code>ruby 4.0.5 +PRISM</code> · MRI + YJIT · JRuby 10.1.0.0
+  (OpenJDK 25) · TruffleRuby 34.0.1 (GraalVM CE Native).</li>
+<li><strong>Method:</strong> each process runs 5 untimed warm-up passes, then 60 timed passes of
+  a fixed inner loop, timed with a monotonic clock; the <strong>best</strong> pass is reported
+  as <strong>ns/op</strong> (lower is better). <code>vs MRI</code> &lt; 1.00× means <em>faster than MRI</em>.
+  Interpreter start-up is outside the timed region, so these are operation costs,
+  not <code>ruby file.rb</code> process costs.</li>
 </ul>
-<h2 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Pick or open an issue describing the change.</li>
-<li>Work test-first: add the differential / unit tests, then make them pass.</li>
-<li>
-<p>Run the full suite with coverage and confirm the gate is green:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">COVERPKG</span><span class="o">=</span><span class="k">$(</span>go<span class="w"> </span>list<span class="w"> </span>./...<span class="w"> </span><span class="p">|</span><span class="w"> </span>paste<span class="w"> </span>-sd,<span class="w"> </span>-<span class="k">)</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-race<span class="w"> </span>-coverpkg<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$COVERPKG</span><span class="s2">&quot;</span><span class="w"> </span>-coverprofile<span class="o">=</span>cover.out<span class="w"> </span>./...
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>go<span class="w"> </span>tool<span class="w"> </span>cover<span class="w"> </span>-func<span class="o">=</span>cover.out<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="w">   </span><span class="c1"># 100.0%</span>
-</code></pre></div>
-</li>
-<li>
-<p>Open a PR in English, referencing the issue.</p>
-</li>
-</ol>
-<h2 id="where-things-live">Where things live<a class="headerlink" href="#where-things-live" title="Permanent link">&para;</a></h2>
-<p>The library is in
-<a href="https://github.com/go-ruby-net-http/net-http"><code>github.com/go-ruby-net-http/net-http</code></a>.
-This documentation site (and the offline benchmark harness) is in
-<a href="https://github.com/go-ruby-net-http/docs"><code>github.com/go-ruby-net-http/docs</code></a>.
-Start from the <a href="../api/">Usage &amp; API</a> page and the <a href="../roadmap/">Roadmap</a> to find
-the right place for your change.</p>
+<h2 id="summary-the-pure-go-codec-beats-mri-and-yjit-on-all-four">Summary — the pure-Go codec beats MRI <em>and</em> YJIT on all four<a class="headerlink" href="#summary-the-pure-go-codec-beats-mri-and-yjit-on-all-four" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Op</th>
+<th style="text-align: right;">go-ruby (ns/op)</th>
+<th style="text-align: right;">vs MRI</th>
+<th style="text-align: right;">vs YJIT</th>
+<th>verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>request-serialize</td>
+<td style="text-align: right;">1056.9</td>
+<td style="text-align: right;"><strong>0.22×</strong></td>
+<td style="text-align: right;"><strong>0.27×</strong></td>
+<td>beats MRI + YJIT</td>
+</tr>
+<tr>
+<td>response-parse</td>
+<td style="text-align: right;">1744.2</td>
+<td style="text-align: right;"><strong>0.07×</strong></td>
+<td style="text-align: right;"><strong>0.10×</strong></td>
+<td>beats MRI + YJIT</td>
+</tr>
+<tr>
+<td>form-encode</td>
+<td style="text-align: right;">1869.6</td>
+<td style="text-align: right;"><strong>0.06×</strong></td>
+<td style="text-align: right;"><strong>0.07×</strong></td>
+<td>beats MRI + YJIT</td>
+</tr>
+<tr>
+<td>header-canonicalize</td>
+<td style="text-align: right;">4120.0</td>
+<td style="text-align: right;"><strong>0.28×</strong></td>
+<td style="text-align: right;"><strong>0.34×</strong></td>
+<td>beats MRI + YJIT</td>
+</tr>
+</tbody>
+</table>
+<p>Unlike collection primitives (where MRI's <code>Hash</code> / <code>Array</code> are hand-written C and
+hard to beat), Ruby's <code>Net::HTTP</code> codec is <strong>pure Ruby</strong> built on regexps and
+per-line object allocation. Compiled Go with no interpreter dispatch and no
+per-header <code>String</code>/<code>MatchData</code> allocation is a structural win here, so there is
+<strong>no op in this offline surface where YJIT is faster</strong> — an honest result, not a
+cherry-pick: the numbers below are every op measured, and the cross-runtime CHECK
+gate guarantees each column computed the identical bytes.</p>
+<h2 id="per-operation-results-best-of-60">Per-operation results (best of 60)<a class="headerlink" href="#per-operation-results-best-of-60" title="Permanent link">&para;</a></h2>
+<h4 id="request-serialize">request-serialize<a class="headerlink" href="#request-serialize" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Runtime</th>
+<th style="text-align: right;">ns/op</th>
+<th style="text-align: right;">vs MRI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>go-ruby-net-http (pure Go)</strong></td>
+<td style="text-align: right;">1056.9</td>
+<td style="text-align: right;">0.22×</td>
+</tr>
+<tr>
+<td>MRI</td>
+<td style="text-align: right;">4735.0</td>
+<td style="text-align: right;">1.00×</td>
+</tr>
+<tr>
+<td>MRI + YJIT</td>
+<td style="text-align: right;">3860.0</td>
+<td style="text-align: right;">0.82×</td>
+</tr>
+<tr>
+<td>JRuby</td>
+<td style="text-align: right;">3534.8</td>
+<td style="text-align: right;">0.75×</td>
+</tr>
+<tr>
+<td>TruffleRuby</td>
+<td style="text-align: right;">8707.9</td>
+<td style="text-align: right;">1.84×</td>
+</tr>
+</tbody>
+</table>
+<h4 id="response-parse">response-parse<a class="headerlink" href="#response-parse" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Runtime</th>
+<th style="text-align: right;">ns/op</th>
+<th style="text-align: right;">vs MRI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>go-ruby-net-http (pure Go)</strong></td>
+<td style="text-align: right;">1744.2</td>
+<td style="text-align: right;">0.07×</td>
+</tr>
+<tr>
+<td>MRI</td>
+<td style="text-align: right;">24400.0</td>
+<td style="text-align: right;">1.00×</td>
+</tr>
+<tr>
+<td>MRI + YJIT</td>
+<td style="text-align: right;">17035.0</td>
+<td style="text-align: right;">0.70×</td>
+</tr>
+<tr>
+<td>JRuby</td>
+<td style="text-align: right;">11425.6</td>
+<td style="text-align: right;">0.47×</td>
+</tr>
+<tr>
+<td>TruffleRuby</td>
+<td style="text-align: right;">17964.2</td>
+<td style="text-align: right;">0.74×</td>
+</tr>
+</tbody>
+</table>
+<h4 id="form-encode">form-encode<a class="headerlink" href="#form-encode" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Runtime</th>
+<th style="text-align: right;">ns/op</th>
+<th style="text-align: right;">vs MRI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>go-ruby-net-http (pure Go)</strong></td>
+<td style="text-align: right;">1869.6</td>
+<td style="text-align: right;">0.06×</td>
+</tr>
+<tr>
+<td>MRI</td>
+<td style="text-align: right;">29090.0</td>
+<td style="text-align: right;">1.00×</td>
+</tr>
+<tr>
+<td>MRI + YJIT</td>
+<td style="text-align: right;">25200.0</td>
+<td style="text-align: right;">0.87×</td>
+</tr>
+<tr>
+<td>JRuby</td>
+<td style="text-align: right;">12307.7</td>
+<td style="text-align: right;">0.42×</td>
+</tr>
+<tr>
+<td>TruffleRuby</td>
+<td style="text-align: right;">21444.2</td>
+<td style="text-align: right;">0.74×</td>
+</tr>
+</tbody>
+</table>
+<h4 id="header-canonicalize">header-canonicalize<a class="headerlink" href="#header-canonicalize" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Runtime</th>
+<th style="text-align: right;">ns/op</th>
+<th style="text-align: right;">vs MRI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>go-ruby-net-http (pure Go)</strong></td>
+<td style="text-align: right;">4120.0</td>
+<td style="text-align: right;">0.28×</td>
+</tr>
+<tr>
+<td>MRI</td>
+<td style="text-align: right;">14945.0</td>
+<td style="text-align: right;">1.00×</td>
+</tr>
+<tr>
+<td>MRI + YJIT</td>
+<td style="text-align: right;">12290.0</td>
+<td style="text-align: right;">0.82×</td>
+</tr>
+<tr>
+<td>JRuby</td>
+<td style="text-align: right;">5366.0</td>
+<td style="text-align: right;">0.36×</td>
+</tr>
+<tr>
+<td>TruffleRuby</td>
+<td style="text-align: right;">12570.6</td>
+<td style="text-align: right;">0.84×</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Reproduce</p>
+<p>The harness is committed under
+<a href="https://github.com/go-ruby-net-http/docs/tree/main/benchmarks"><code>benchmarks/</code></a>:
+a self-contained Go driver (<code>go/</code>, which pins this library's published
+pseudo-version via <code>go.mod</code>), the equivalent <code>ruby/net_http.rb</code> workload, and
+<code>run.sh</code>. Run <code>OUTER=60 WARM=5 bash benchmarks/run.sh</code>; env <code>OUTER</code>/<code>WARM</code>
+tune the pass budget and <code>RUBY</code>/<code>JRUBY</code>/<code>TRUFFLERUBY</code> select the runtime
+binaries. <code>run.sh</code> verifies every runtime's <code>sha256</code> CHECK against the Go
+driver before timing it.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warm-up budget &amp; noise — honest framing</p>
+<p>Numbers reflect a <strong>fixed warm-process budget</strong> (5 warm-up + 60 timed passes
+in one process, best pass reported). The JVM/GraalVM JITs (JRuby, TruffleRuby)
+may need a larger warm-up to reach steady state, so their columns can
+<strong>understate</strong> peak throughput — TruffleRuby's <code>request-serialize</code> (1.84×) is
+the clearest case of a cold, short-loop outlier. Every number here is a <strong>real
+measured value</strong> from the dated run above — nothing is fabricated, estimated,
+or cherry-picked. The go-ruby column is the pure-Go library; every other column
+is that interpreter's own <code>Net::HTTP</code> / <code>URI</code> doing the equivalent work, proven
+to produce identical output.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">What this does <em>not</em> claim</p>
+<p>This measures the <strong>codec</strong>, not HTTP. A real request is dominated by DNS, the
+TCP round-trips and the TLS handshake — none of which this library performs, and
+all of which are identical no matter which runtime formats the bytes. The result
+to take away is narrow and honest: <strong>formatting and parsing HTTP/1.1 messages is
+materially cheaper in the pure-Go codec than in any Ruby runtime's <code>Net::HTTP</code></strong>,
+so binding it costs the interpreter nothing on the compute side.</p>
+</div>
 
 
 

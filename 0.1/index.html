@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Pure-Go, MRI-4.0.5-faithful Ruby net-http (no cgo)">
+        <meta name="description" content="A pure-Go reimplementation of Ruby's Net::HTTP HTTP/1.1 message codec — MRI-faithful, no cgo, no I/O.">
       
       
       
@@ -313,9 +313,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
+  <a href="#the-socket-tls-is-a-host-side-seam" class="md-nav__link">
     <span class="md-ellipsis">
-      Install
+      The socket / TLS is a host-side seam
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-taste" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick taste
     </span>
   </a>
   
@@ -383,11 +392,51 @@
   
   
     <li class="md-nav__item">
-      <a href="reference/" class="md-nav__link">
+      <a href="api/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Reference
+    Usage & API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="roadmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance
   </span>
   
 
@@ -443,9 +492,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
+  <a href="#the-socket-tls-is-a-host-side-seam" class="md-nav__link">
     <span class="md-ellipsis">
-      Install
+      The socket / TLS is a host-side seam
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-taste" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick taste
     </span>
   </a>
   
@@ -494,23 +552,72 @@
 
 
 <h1 id="go-ruby-net-http-documentation">go-ruby-net-http documentation<a class="headerlink" href="#go-ruby-net-http-documentation" title="Permanent link">&para;</a></h1>
-<p><strong>Pure-Go, MRI-4.0.5-faithful Ruby net-http (no cgo)</strong></p>
-<p><code>go-ruby-net-http/net-http</code> is a faithful, pure-Go (zero cgo) reimplementation of Ruby's <code>net-http</code>,
-matching reference Ruby (MRI) behaviour. The module path is
-<code>github.com/go-ruby-net-http/net-http</code>.</p>
+<p><strong>Ruby's <code>Net::HTTP</code> HTTP/1.1 message codec — in pure Go, no cgo, no I/O.</strong></p>
+<p><code>go-ruby-net-http/net-http</code> is a faithful, pure-Go (zero cgo) reimplementation of
+the deterministic, interpreter-independent core of Ruby's <code>Net::HTTP</code>: it builds
+request bytes exactly as MRI 4.0.5 writes them to the socket and parses a raw
+HTTP/1.1 response byte stream into MRI's <code>Net::HTTPResponse</code> subclass model —
+<strong>without any Ruby runtime, and without performing any I/O itself</strong>. The module
+path is <code>github.com/go-ruby-net-http/net-http</code>.</p>
 <p>It is a <strong>standalone, reusable</strong> library importable by any Go program, and the
-backend bound into <a href="https://github.com/go-embedded-ruby/ruby">go-embedded-ruby</a>
-by <code>rbgo</code> as a native module — the same pattern as
-<a href="https://github.com/go-ruby-yaml/yaml">go-ruby-yaml</a>. The dependency runs the
-other way: this library has <strong>no dependency on the Ruby runtime</strong>.</p>
+HTTP-message backend intended for <a href="https://github.com/go-embedded-ruby/ruby">go-embedded-ruby</a>
+(<code>rbgo</code>) — the same sibling pattern as
+<a href="https://github.com/go-ruby-regexp/regexp">go-ruby-regexp</a>,
+<a href="https://github.com/go-ruby-erb/erb">go-ruby-erb</a> and
+<a href="https://github.com/go-ruby-yaml/yaml">go-ruby-yaml</a>. The dependency runs one way:
+this library has <strong>no dependency on the Ruby runtime</strong>.</p>
 <div class="admonition success">
-<p class="admonition-title">Status: pure-Go, CGO=0, differential-tested</p>
-<p>A faithful pure-Go port of Ruby's <code>net-http</code>, validated against reference Ruby, at 100%
-coverage, <code>gofmt</code> + <code>go vet</code> clean, CI green across the six 64-bit Go targets
-and three OSes.</p>
+<p class="admonition-title">Status: complete — MRI byte-exact codec</p>
+<p>A faithful pure-Go port of <code>Net::HTTP</code>'s message codec, validated by a
+<strong>differential oracle</strong> against the system <code>ruby</code> — request bytes and parsed
+responses compared byte-for-byte — at 100% coverage, <code>gofmt</code> + <code>go vet</code> clean,
+CI green across the six 64-bit Go targets and three OSes.</p>
 </div>
-<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>go<span class="w"> </span>get<span class="w"> </span>github.com/go-ruby-net-http/net-http
+<h2 id="the-socket-tls-is-a-host-side-seam">The socket / TLS is a host-side seam<a class="headerlink" href="#the-socket-tls-is-a-host-side-seam" title="Permanent link">&para;</a></h2>
+<p>Building HTTP/1.1 request bytes and parsing a response byte stream is fully
+deterministic and needs no interpreter, so it lives here as pure Go. Opening the
+<code>TCPSocket</code>, doing the TLS handshake, and moving the bytes is the host's job.</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Owner</th>
+<th>This library</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DNS, <code>TCPSocket</code>, TLS</td>
+<td>host (rbgo)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>serialise the request</td>
+<td>this library</td>
+<td><code>Request.Bytes(version) []byte</code></td>
+</tr>
+<tr>
+<td>write / read bytes on the socket</td>
+<td>host (rbgo)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>parse the response</td>
+<td>this library</td>
+<td><code>ParseResponse([]byte) (*Response, error)</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="quick-taste">Quick taste<a class="headerlink" href="#quick-taste" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nx">req</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">nethttp</span><span class="p">.</span><span class="nx">NewRequest</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/submit&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;example.com&quot;</span><span class="p">,</span><span class="w"> </span><span class="kc">nil</span><span class="p">)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nx">req</span><span class="p">.</span><span class="nx">SetFormData</span><span class="p">([][</span><span class="mi">2</span><span class="p">]</span><span class="kt">string</span><span class="p">{{</span><span class="s">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;a b&quot;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;x&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&amp;2&quot;</span><span class="p">}})</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nx">wire</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">Bytes</span><span class="p">(</span><span class="s">&quot;1.1&quot;</span><span class="p">)</span><span class="w">   </span><span class="c1">// exact MRI socket bytes</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nx">raw</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\n\r\n4\r\nWiki\r\n5\r\npedia\r\n0\r\n\r\n&quot;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nx">res</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">nethttp</span><span class="p">.</span><span class="nx">ParseResponse</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">raw</span><span class="p">))</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nx">res</span><span class="p">.</span><span class="nx">Class</span><span class="p">()</span><span class="w">      </span><span class="c1">// &quot;HTTPOK&quot;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nx">res</span><span class="p">.</span><span class="nx">IsSuccess</span><span class="p">()</span><span class="w">  </span><span class="c1">// true</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nx">res</span><span class="p">.</span><span class="nx">Body</span><span class="p">()</span><span class="w">       </span><span class="c1">// &quot;Wikipedia&quot; (chunked-decoded)</span>
 </code></pre></div>
 <h2 id="repositories">Repositories<a class="headerlink" href="#repositories" title="Permanent link">&para;</a></h2>
 <table>
@@ -523,7 +630,7 @@ and three OSes.</p>
 <tbody>
 <tr>
 <td><a href="https://github.com/go-ruby-net-http/net-http"><code>net-http</code></a></td>
-<td>the library — Ruby's <code>net-http</code> in pure Go</td>
+<td>the library — the <code>Net::HTTP</code> codec in pure Go</td>
 </tr>
 <tr>
 <td><a href="https://github.com/go-ruby-net-http/docs"><code>docs</code></a></td>
@@ -543,17 +650,22 @@ and three OSes.</p>
 <ul>
 <li><strong>Pure Go, <code>CGO_ENABLED=0</code></strong> — trivial cross-compilation, a single static
   binary, no C toolchain.</li>
-<li><strong>Reference-faithful.</strong> Behaviour matches reference Ruby (MRI), validated by a
-  differential oracle rather than approximated.</li>
-<li><strong>Standalone &amp; reusable.</strong> No dependency on the Ruby runtime — the dependency
-  runs the other way; <code>rbgo</code> binds this module.</li>
-<li><strong>100% test coverage</strong> is the target, enforced as a CI gate, across 6 arches.</li>
+<li><strong>MRI byte-exact.</strong> Request bytes and parsed responses match reference Ruby
+  exactly, validated by a differential oracle against the <code>ruby</code> binary.</li>
+<li><strong>No I/O.</strong> The codec never opens a socket, touches a file, or reads a clock —
+  it is a pure function of its bytes, so it is deterministic and testable in
+  isolation.</li>
+<li><strong>Standalone &amp; reusable.</strong> No dependency on the Ruby runtime; the dependency
+  runs the other way.</li>
+<li><strong>100% test coverage</strong>, enforced as a CI gate, across 6 arches and 3 OSes.</li>
 </ul>
 <h2 id="where-to-go-next">Where to go next<a class="headerlink" href="#where-to-go-next" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="why/">Why pure Go</a> — why this slice of Ruby lives as a standalone,
-  interpreter-independent Go library.</li>
-<li><a href="reference/">Reference</a> — install, import path and the API reference.</li>
+<li><a href="why/">Why pure Go</a> — why this slice of <code>Net::HTTP</code> is deterministic enough to
+  live as a standalone, interpreter-independent Go library.</li>
+<li><a href="api/">Usage &amp; API</a> — the public surface and worked examples.</li>
+<li><a href="roadmap/">Roadmap</a> — what is done and what is downstream (the transport) by design.</li>
+<li><a href="performance/">Performance</a> — the offline, cross-runtime codec benchmark.</li>
 </ul>
 <p>Source lives at <a href="https://github.com/go-ruby-net-http/net-http">github.com/go-ruby-net-http/net-http</a>.</p>
 

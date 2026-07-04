@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Pure-Go, MRI-4.0.5-faithful Ruby net-http (no cgo)">
+        <meta name="description" content="A pure-Go reimplementation of Ruby's Net::HTTP HTTP/1.1 message codec — MRI-faithful, no cgo, no I/O.">
       
       
       
@@ -16,7 +16,7 @@
         <link rel="prev" href="..">
       
       
-        <link rel="next" href="../reference/">
+        <link rel="next" href="../api/">
       
       
       <link rel="icon" href="../assets/logo.svg">
@@ -335,9 +335,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#extracted-for-reuse-reusable-by-anyone" class="md-nav__link">
+  <a href="#the-transport-is-a-separate-concern" class="md-nav__link">
     <span class="md-ellipsis">
-      Extracted for reuse, reusable by anyone
+      The transport is a separate concern
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extracted-for-reuse-bound-the-other-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extracted for reuse, bound the other way
     </span>
   </a>
   
@@ -367,11 +376,51 @@
   
   
     <li class="md-nav__item">
-      <a href="../reference/" class="md-nav__link">
+      <a href="../api/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Reference
+    Usage & API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Roadmap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performance
   </span>
   
 
@@ -427,9 +476,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#extracted-for-reuse-reusable-by-anyone" class="md-nav__link">
+  <a href="#the-transport-is-a-separate-concern" class="md-nav__link">
     <span class="md-ellipsis">
-      Extracted for reuse, reusable by anyone
+      The transport is a separate concern
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extracted-for-reuse-bound-the-other-way" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extracted for reuse, bound the other way
     </span>
   </a>
   
@@ -460,19 +518,38 @@
 
 
 <h1 id="why-pure-go">Why pure Go<a class="headerlink" href="#why-pure-go" title="Permanent link">&para;</a></h1>
-<p><code>go-ruby-net-http/net-http</code> reimplements Ruby's <code>net-http</code> in <strong>pure Go, with cgo disabled</strong>. The slice of
-Ruby it covers is <strong>deterministic and interpreter-independent</strong>: given its inputs,
-the result is a pure function of those inputs — no live binding, no evaluation of
-arbitrary Ruby. That is exactly the part that can — and should — live as a
-standalone Go library, separate from the interpreter.</p>
-<h2 id="extracted-for-reuse-reusable-by-anyone">Extracted for reuse, reusable by anyone<a class="headerlink" href="#extracted-for-reuse-reusable-by-anyone" title="Permanent link">&para;</a></h2>
+<p><code>go-ruby-net-http/net-http</code> reimplements the core of Ruby's <code>Net::HTTP</code> in <strong>pure
+Go, with cgo disabled</strong>. The slice of <code>Net::HTTP</code> it covers is <strong>deterministic and
+interpreter-independent</strong>: given the request description it produces the exact
+bytes MRI would write to the socket, and given a response byte stream it produces
+the exact <code>Net::HTTPResponse</code> model MRI would build — a pure function of the
+bytes, no live binding, no evaluation of arbitrary Ruby. That is precisely the
+part that can — and should — live as a standalone Go library, separate from both
+the interpreter and the network.</p>
+<h2 id="the-transport-is-a-separate-concern">The transport is a separate concern<a class="headerlink" href="#the-transport-is-a-separate-concern" title="Permanent link">&para;</a></h2>
+<p><code>Net::HTTP</code> bundles two very different things: a <strong>message codec</strong> (format the
+request, parse the response) and a <strong>transport</strong> (DNS, <code>TCPSocket</code>, TLS, timeouts,
+redirects, connection reuse). Only the first is deterministic and pure. This
+library implements exactly that half:</p>
 <ul>
-<li>any Go program can import <code>github.com/go-ruby-net-http/net-http</code> directly, with no Ruby runtime;</li>
-<li>the dependency runs the <em>other</em> way — <code>rbgo</code> binds this module as a native
-  module for <a href="https://github.com/go-embedded-ruby/ruby">go-embedded-ruby</a> (the same
-  pattern as <a href="https://github.com/go-ruby-yaml/yaml">go-ruby-yaml</a>), rather than
-  this module depending on the interpreter;</li>
-<li>the behaviour is pinned by a <strong>differential oracle</strong> against reference Ruby,
+<li><code>Request.Bytes</code> is the inverse of <code>ParseResponse</code>; neither touches the network,
+  a file, or a clock.</li>
+<li>The host supplies the byte transport — open the (TLS) socket, write
+  <code>Request.Bytes</code>, read everything back, hand it to <code>ParseResponse</code>. In the rbgo
+  ecosystem that host is the interpreter's socket layer.</li>
+</ul>
+<p>Keeping the transport out is what makes the codec <strong>testable in isolation</strong> and
+<strong>reusable</strong> by any Go program that already has a byte transport.</p>
+<h2 id="extracted-for-reuse-bound-the-other-way">Extracted for reuse, bound the other way<a class="headerlink" href="#extracted-for-reuse-bound-the-other-way" title="Permanent link">&para;</a></h2>
+<p>This library is designed as a reusable standalone module so that:</p>
+<ul>
+<li>any Go program can import <code>github.com/go-ruby-net-http/net-http</code> directly, with
+  no Ruby runtime;</li>
+<li>the dependency runs the <em>other</em> way — <code>rbgo</code> binds this module as the
+  HTTP-message backend (the same pattern as
+  <a href="https://github.com/go-ruby-yaml/yaml">go-ruby-yaml</a>), rather than this module
+  depending on the interpreter;</li>
+<li>the behaviour is pinned by a <strong>differential oracle</strong> against the system <code>ruby</code>,
   independent of any one consumer.</li>
 </ul>
 <h2 id="why-pure-go-matters-here">Why pure Go matters here<a class="headerlink" href="#why-pure-go-matters-here" title="Permanent link">&para;</a></h2>
@@ -482,9 +559,11 @@ standalone Go library, separate from the interpreter.</p>
   static binary;</li>
 <li>has <strong>no dependency on the Ruby runtime</strong> — the dependency runs the other way;</li>
 <li>can be differentially tested against the <code>ruby</code> binary wherever one is on
-  <code>PATH</code>, while the cross-arch lanes still validate the library itself.</li>
+  <code>PATH</code>, while the cross-arch lanes (where <code>ruby</code> is absent) still validate the
+  codec itself.</li>
 </ul>
-<p>See <a href="../reference/">Reference</a> for the import path and API.</p>
+<p>See <a href="../api/">Usage &amp; API</a> for the surface and <a href="../roadmap/">Roadmap</a> for the
+codec-vs-transport boundary.</p>
 
 
 
