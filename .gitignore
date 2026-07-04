@@ -1,0 +1,6 @@
+/site/
+.venv/
+__pycache__/
+
+# Compiled Go benchmark binary (module name is `bench`).
+/benchmarks/go/bench
