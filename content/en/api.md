@@ -1,4 +1,9 @@
-# Usage & API
+---
+title: "Usage & API"
+weight: 30
+---
+
+# Usage & API {#usage-api}
 
 The public API lives at the module root (`github.com/go-ruby-net-http/net-http`,
 package `nethttp`). It is **Ruby-shaped but Go-idiomatic**: the names mirror
@@ -7,17 +12,20 @@ package `nethttp`). It is **Ruby-shaped but Go-idiomatic**: the names mirror
 Go conventions — explicit byte slices, returned errors, no global state, and no
 hidden I/O.
 
-!!! success "Status: implemented"
-    The library is built and importable as `github.com/go-ruby-net-http/net-http`;
-    see [Roadmap](roadmap.md).
+{{< callout type="info" >}}
+**Status: implemented**
 
-## Install
+The library is built and importable as `github.com/go-ruby-net-http/net-http`;
+see [Roadmap]({{< relref "roadmap.md" >}}).
+{{< /callout >}}
+
+## Install {#install}
 
 ```sh
 go get github.com/go-ruby-net-http/net-http
 ```
 
-## Building a request
+## Building a request {#building-a-request}
 
 `NewRequest` mirrors `Net::HTTPGenericRequest#initialize` for the `Get` / `Post` /
 `Put` / `Delete` / `Head` / `Patch` / `Options` subclasses: it seeds MRI's default
@@ -43,7 +51,7 @@ wire, _ := req.Bytes("1.1")                                 // exact MRI socket 
 empty-body default for body-permitting methods, and Basic / Proxy-Basic auth
 (`req.BasicAuth("user", "pass")`).
 
-## Parsing a response
+## Parsing a response {#parsing-a-response}
 
 `ParseResponse` mirrors `Net::HTTPResponse.read_new` + `read_body`: the status
 line, folded multi-value headers, and the body decoded by `Content-Length` **or**
@@ -67,7 +75,7 @@ selects — `HTTPOK`, `HTTPNotFound`, `HTTPMovedPermanently`, … with the
 `HTTPUnknownResponse` / category fallbacks — exposed as `Class()` / `Category()`
 and the `Is*` predicates rather than a distinct Go type per code.
 
-## The `Net::HTTPHeader` mixin
+## The `Net::HTTPHeader` mixin {#the-nethttpheader-mixin}
 
 Both `Request` and `Response` embed `*Header`, the pure-Go port of the
 `Net::HTTPHeader` mixin (keys stored downcased, first-insertion order preserved):
@@ -84,7 +92,7 @@ h.ConnectionClose()         // connection_close?
 h.EachCapitalized(fn)       // each_capitalized (wire order + casing)
 ```
 
-## Public surface
+## Public surface {#public-surface}
 
 ```go
 // Request building (Net::HTTPGenericRequest + the Get/Post/... subclasses).
@@ -110,5 +118,5 @@ func EncodeWWWFormComponent(s string) string
 func EncodeWWWForm(pairs [][2]string) string
 ```
 
-See [Roadmap](roadmap.md) for the codec-vs-transport boundary and
-[Performance](performance.md) for the offline benchmark.
+See [Roadmap]({{< relref "roadmap.md" >}}) for the codec-vs-transport boundary and
+[Performance]({{< relref "performance.md" >}}) for the offline benchmark.

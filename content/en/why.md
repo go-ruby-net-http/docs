@@ -1,4 +1,9 @@
-# Why pure Go
+---
+title: "Why pure Go"
+weight: 20
+---
+
+# Why pure Go {#why-pure-go}
 
 `go-ruby-net-http/net-http` reimplements the core of Ruby's `Net::HTTP` in **pure
 Go, with cgo disabled**. The slice of `Net::HTTP` it covers is **deterministic and
@@ -9,7 +14,7 @@ bytes, no live binding, no evaluation of arbitrary Ruby. That is precisely the
 part that can — and should — live as a standalone Go library, separate from both
 the interpreter and the network.
 
-## The transport is a separate concern
+## The transport is a separate concern {#the-transport-is-a-separate-concern}
 
 `Net::HTTP` bundles two very different things: a **message codec** (format the
 request, parse the response) and a **transport** (DNS, `TCPSocket`, TLS, timeouts,
@@ -25,7 +30,7 @@ library implements exactly that half:
 Keeping the transport out is what makes the codec **testable in isolation** and
 **reusable** by any Go program that already has a byte transport.
 
-## Extracted for reuse, bound the other way
+## Extracted for reuse, bound the other way {#extracted-for-reuse-bound-the-other-way}
 
 This library is designed as a reusable standalone module so that:
 
@@ -38,7 +43,7 @@ This library is designed as a reusable standalone module so that:
 - the behaviour is pinned by a **differential oracle** against the system `ruby`,
   independent of any one consumer.
 
-## Why pure Go matters here
+## Why pure Go matters here {#why-pure-go-matters-here}
 
 Because the library is CGO-free, it:
 
@@ -49,5 +54,5 @@ Because the library is CGO-free, it:
   `PATH`, while the cross-arch lanes (where `ruby` is absent) still validate the
   codec itself.
 
-See [Usage & API](api.md) for the surface and [Roadmap](roadmap.md) for the
+See [Usage & API]({{< relref "api.md" >}}) for the surface and [Roadmap]({{< relref "roadmap.md" >}}) for the
 codec-vs-transport boundary.

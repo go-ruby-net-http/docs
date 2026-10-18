@@ -1,4 +1,9 @@
-# Performance
+---
+title: "Performance"
+weight: 50
+---
+
+# Performance {#performance}
 
 `go-ruby-net-http/net-http` is the pure-Go library that
 [`rbgo`](https://github.com/go-embedded-ruby/ruby) can bind for Ruby's
@@ -6,16 +11,19 @@
 benchmark** of that codec against the reference Ruby runtimes, part of the
 ecosystem-wide per-module parity suite.
 
-!!! warning "Offline scope — this is the codec, not the network"
-    `net-http` is a **message codec with no I/O**: DNS, the `TCPSocket`, the TLS
-    handshake and the byte transfer are the host's job (rbgo's), by design. This
-    benchmark therefore measures **only the deterministic, network-free surface** —
-    building request bytes, parsing a response buffer (including chunked decode),
-    URI form encoding, and header canonicalization. It is **not** an end-to-end
-    HTTP latency comparison; the wire, the kernel and the TLS stack dominate any
-    real request and are identical regardless of who builds the bytes.
+{{< callout type="warning" >}}
+**Offline scope — this is the codec, not the network**
 
-## What is measured
+`net-http` is a **message codec with no I/O**: DNS, the `TCPSocket`, the TLS
+handshake and the byte transfer are the host's job (rbgo's), by design. This
+benchmark therefore measures **only the deterministic, network-free surface** —
+building request bytes, parsing a response buffer (including chunked decode),
+URI form encoding, and header canonicalization. It is **not** an end-to-end
+HTTP latency comparison; the wire, the kernel and the TLS stack dominate any
+real request and are identical regardless of who builds the bytes.
+{{< /callout >}}
+
+## What is measured {#what-is-measured}
 
 The **same** four network-free operations run through the pure-Go library (via
 its Go API) and through each reference runtime's own `Net::HTTP` / `URI`. Inputs
@@ -40,7 +48,7 @@ driver**; a runtime that diverges is skipped, not timed. So each column is the
   Interpreter start-up is outside the timed region, so these are operation costs,
   not `ruby file.rb` process costs.
 
-## Summary — the pure-Go codec beats MRI *and* YJIT on all four
+## Summary — the pure-Go codec beats MRI *and* YJIT on all four {#summary-the-pure-go-codec-beats-mri-and-yjit-on-all-four}
 
 | Op | go-ruby (ns/op) | vs MRI | vs YJIT | verdict |
 | --- | ---: | ---: | ---: | --- |
@@ -57,9 +65,9 @@ per-header `String`/`MatchData` allocation is a structural win here, so there is
 cherry-pick: the numbers below are every op measured, and the cross-runtime CHECK
 gate guarantees each column computed the identical bytes.
 
-## Per-operation results (best of 60)
+## Per-operation results (best of 60) {#per-operation-results-best-of-60}
 
-#### request-serialize
+#### request-serialize {#request-serialize}
 
 | Runtime | ns/op | vs MRI |
 | --- | ---: | ---: |
@@ -69,7 +77,7 @@ gate guarantees each column computed the identical bytes.
 | JRuby | 3534.8 | 0.75× |
 | TruffleRuby | 8707.9 | 1.84× |
 
-#### response-parse
+#### response-parse {#response-parse}
 
 | Runtime | ns/op | vs MRI |
 | --- | ---: | ---: |
@@ -79,7 +87,7 @@ gate guarantees each column computed the identical bytes.
 | JRuby | 11425.6 | 0.47× |
 | TruffleRuby | 17964.2 | 0.74× |
 
-#### form-encode
+#### form-encode {#form-encode}
 
 | Runtime | ns/op | vs MRI |
 | --- | ---: | ---: |
@@ -89,7 +97,7 @@ gate guarantees each column computed the identical bytes.
 | JRuby | 12307.7 | 0.42× |
 | TruffleRuby | 21444.2 | 0.74× |
 
-#### header-canonicalize
+#### header-canonicalize {#header-canonicalize}
 
 | Runtime | ns/op | vs MRI |
 | --- | ---: | ---: |
@@ -99,31 +107,40 @@ gate guarantees each column computed the identical bytes.
 | JRuby | 5366.0 | 0.36× |
 | TruffleRuby | 12570.6 | 0.84× |
 
-!!! note "Reproduce"
-    The harness is committed under
-    [`benchmarks/`](https://github.com/go-ruby-net-http/docs/tree/main/benchmarks):
-    a self-contained Go driver (`go/`, which pins this library's published
-    pseudo-version via `go.mod`), the equivalent `ruby/net_http.rb` workload, and
-    `run.sh`. Run `OUTER=60 WARM=5 bash benchmarks/run.sh`; env `OUTER`/`WARM`
-    tune the pass budget and `RUBY`/`JRUBY`/`TRUFFLERUBY` select the runtime
-    binaries. `run.sh` verifies every runtime's `sha256` CHECK against the Go
-    driver before timing it.
+{{< callout type="info" >}}
+**Reproduce**
 
-!!! warning "Warm-up budget & noise — honest framing"
-    Numbers reflect a **fixed warm-process budget** (5 warm-up + 60 timed passes
-    in one process, best pass reported). The JVM/GraalVM JITs (JRuby, TruffleRuby)
-    may need a larger warm-up to reach steady state, so their columns can
-    **understate** peak throughput — TruffleRuby's `request-serialize` (1.84×) is
-    the clearest case of a cold, short-loop outlier. Every number here is a **real
-    measured value** from the dated run above — nothing is fabricated, estimated,
-    or cherry-picked. The go-ruby column is the pure-Go library; every other column
-    is that interpreter's own `Net::HTTP` / `URI` doing the equivalent work, proven
-    to produce identical output.
+The harness is committed under
+[`benchmarks/`](https://github.com/go-ruby-net-http/docs/tree/main/benchmarks):
+a self-contained Go driver (`go/`, which pins this library's published
+pseudo-version via `go.mod`), the equivalent `ruby/net_http.rb` workload, and
+`run.sh`. Run `OUTER=60 WARM=5 bash benchmarks/run.sh`; env `OUTER`/`WARM`
+tune the pass budget and `RUBY`/`JRUBY`/`TRUFFLERUBY` select the runtime
+binaries. `run.sh` verifies every runtime's `sha256` CHECK against the Go
+driver before timing it.
+{{< /callout >}}
 
-!!! note "What this does *not* claim"
-    This measures the **codec**, not HTTP. A real request is dominated by DNS, the
-    TCP round-trips and the TLS handshake — none of which this library performs, and
-    all of which are identical no matter which runtime formats the bytes. The result
-    to take away is narrow and honest: **formatting and parsing HTTP/1.1 messages is
-    materially cheaper in the pure-Go codec than in any Ruby runtime's `Net::HTTP`**,
-    so binding it costs the interpreter nothing on the compute side.
+{{< callout type="warning" >}}
+**Warm-up budget & noise — honest framing**
+
+Numbers reflect a **fixed warm-process budget** (5 warm-up + 60 timed passes
+in one process, best pass reported). The JVM/GraalVM JITs (JRuby, TruffleRuby)
+may need a larger warm-up to reach steady state, so their columns can
+**understate** peak throughput — TruffleRuby's `request-serialize` (1.84×) is
+the clearest case of a cold, short-loop outlier. Every number here is a **real
+measured value** from the dated run above — nothing is fabricated, estimated,
+or cherry-picked. The go-ruby column is the pure-Go library; every other column
+is that interpreter's own `Net::HTTP` / `URI` doing the equivalent work, proven
+to produce identical output.
+{{< /callout >}}
+
+{{< callout type="info" >}}
+**What this does *not* claim**
+
+This measures the **codec**, not HTTP. A real request is dominated by DNS, the
+TCP round-trips and the TLS handshake — none of which this library performs, and
+all of which are identical no matter which runtime formats the bytes. The result
+to take away is narrow and honest: **formatting and parsing HTTP/1.1 messages is
+materially cheaper in the pure-Go codec than in any Ruby runtime's `Net::HTTP`**,
+so binding it costs the interpreter nothing on the compute side.
+{{< /callout >}}
