@@ -1,4 +1,9 @@
-# Roadmap
+---
+title: "Roadmap"
+weight: 40
+---
+
+# Roadmap {#roadmap}
 
 `go-ruby-net-http/net-http` is grown **test-first**, each capability
 differential-tested against MRI rather than built in isolation. The
@@ -13,7 +18,7 @@ codec — is **complete**.
 | `Net::HTTPHeader` mixin | `[]` / `[]=` / `key?` / `delete` / `add_field` / `get_fields` / `each_header` / `each_capitalized`, plus `content_type` / `content_length` / `chunked?` / `connection_close?` and the `URI.encode_www_form` component encoder. | **Done** |
 | Differential oracle & coverage | Request bytes, response parse, subclass over MRI's whole table, and form encoding checked byte-for-byte against `ruby` (≥ 4.0); 100% coverage, green across 6 arches and 3 OSes. | **Done** |
 
-## Documented out-of-scope boundaries
+## Documented out-of-scope boundaries {#documented-out-of-scope-boundaries}
 
 These are **deliberate**, recorded so the module's surface is unambiguous:
 
@@ -28,5 +33,5 @@ These are **deliberate**, recorded so the module's surface is unambiguous:
 - **Reference is reference Ruby (MRI).** Byte-for-byte conformance targets MRI
   4.0.5's `Net::HTTP`, as pinned by the differential oracle.
 
-See [Usage & API](api.md) for the surface and [Why pure Go](why.md) for the
+See [Usage & API]({{< relref "api.md" >}}) for the surface and [Why pure Go]({{< relref "why.md" >}}) for the
 codec/transport split.

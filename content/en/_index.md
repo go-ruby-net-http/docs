@@ -1,4 +1,9 @@
-# go-ruby-net-http documentation
+---
+title: "Home"
+weight: 10
+---
+
+# go-ruby-net-http documentation {#go-ruby-net-http-documentation}
 
 **Ruby's `Net::HTTP` HTTP/1.1 message codec — in pure Go, no cgo, no I/O.**
 
@@ -17,13 +22,16 @@ HTTP-message backend intended for [go-embedded-ruby](https://github.com/go-embed
 [go-ruby-yaml](https://github.com/go-ruby-yaml/yaml). The dependency runs one way:
 this library has **no dependency on the Ruby runtime**.
 
-!!! success "Status: complete — MRI byte-exact codec"
-    A faithful pure-Go port of `Net::HTTP`'s message codec, validated by a
-    **differential oracle** against the system `ruby` — request bytes and parsed
-    responses compared byte-for-byte — at 100% coverage, `gofmt` + `go vet` clean,
-    CI green across the six 64-bit Go targets and three OSes.
+{{< callout type="info" >}}
+**Status: complete — MRI byte-exact codec**
 
-## The socket / TLS is a host-side seam
+A faithful pure-Go port of `Net::HTTP`'s message codec, validated by a
+**differential oracle** against the system `ruby` — request bytes and parsed
+responses compared byte-for-byte — at 100% coverage, `gofmt` + `go vet` clean,
+CI green across the six 64-bit Go targets and three OSes.
+{{< /callout >}}
+
+## The socket / TLS is a host-side seam {#the-socket-tls-is-a-host-side-seam}
 
 Building HTTP/1.1 request bytes and parsing a response byte stream is fully
 deterministic and needs no interpreter, so it lives here as pure Go. Opening the
@@ -36,7 +44,7 @@ deterministic and needs no interpreter, so it lives here as pure Go. Opening the
 | write / read bytes on the socket | host (rbgo) | — |
 | parse the response | this library | `ParseResponse([]byte) (*Response, error)` |
 
-## Quick taste
+## Quick taste {#quick-taste}
 
 ```go
 req, _ := nethttp.NewRequest("POST", "/submit", "example.com", nil)
@@ -50,7 +58,7 @@ res.IsSuccess()  // true
 res.Body()       // "Wikipedia" (chunked-decoded)
 ```
 
-## Repositories
+## Repositories {#repositories}
 
 | Repo | What it is |
 | --- | --- |
@@ -59,7 +67,7 @@ res.Body()       // "Wikipedia" (chunked-decoded)
 | [`go-ruby-net-http.github.io`](https://github.com/go-ruby-net-http/go-ruby-net-http.github.io) | the organization landing page (Hugo) |
 | [`brand`](https://github.com/go-ruby-net-http/brand) | logo and brand assets |
 
-## Principles
+## Principles {#principles}
 
 - **Pure Go, `CGO_ENABLED=0`** — trivial cross-compilation, a single static
   binary, no C toolchain.
@@ -72,12 +80,12 @@ res.Body()       // "Wikipedia" (chunked-decoded)
   runs the other way.
 - **100% test coverage**, enforced as a CI gate, across 6 arches and 3 OSes.
 
-## Where to go next
+## Where to go next {#where-to-go-next}
 
-- [Why pure Go](why.md) — why this slice of `Net::HTTP` is deterministic enough to
+- [Why pure Go]({{< relref "why.md" >}}) — why this slice of `Net::HTTP` is deterministic enough to
   live as a standalone, interpreter-independent Go library.
-- [Usage & API](api.md) — the public surface and worked examples.
-- [Roadmap](roadmap.md) — what is done and what is downstream (the transport) by design.
-- [Performance](performance.md) — the offline, cross-runtime codec benchmark.
+- [Usage & API]({{< relref "api.md" >}}) — the public surface and worked examples.
+- [Roadmap]({{< relref "roadmap.md" >}}) — what is done and what is downstream (the transport) by design.
+- [Performance]({{< relref "performance.md" >}}) — the offline, cross-runtime codec benchmark.
 
 Source lives at [github.com/go-ruby-net-http/net-http](https://github.com/go-ruby-net-http/net-http).
